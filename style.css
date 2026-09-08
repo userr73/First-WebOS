@@ -35,8 +35,9 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.3);
     color: var(--primary-text-col-contrast);
     
-    p {
-        margin: 0;
+    div {
+        display: flex;
+        gap: 0.5rem;
     }
 
     img {
@@ -44,9 +45,38 @@ a:hover {
         height: 24px; 
         border-radius: 100px;
     }
+    
+    p {
+        margin: 0;
+    }
+    
+    #welcomeopen {
+        cursor: pointer;
+    }
+}
+
+.app-icon {
+    text-align: center;
+    padding: 1rem;
+    width: fit-content;
+    
+    filter: drop-shadow(0 0 8px var(--primary-text-col-contrast));
+
+    img {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    p {
+        margin: 0;
+        color: var(--primary-text-col-contrast);
+    }
 }
 
 .window {
+    display: flex;
+    flex-direction: column;
+
     background-color: var(--window-col);
     
     width: fit-content; 
@@ -78,10 +108,15 @@ a:hover {
 
     i {
         font-size: 0.85rem;
+        cursor: pointer;
     }
 
     i:hover {
         color: var(--primary-text-col-hover);
     }
+}
+
+#notes {
+    display: none;
 }
 

@@ -10,26 +10,44 @@
 </head>
 <body>
     <div class="top-bar">
-        <img src="./images/pfp.png" alt="ghost profile photo">
-        <p>
-            SomeOS
-        </p> 
+        <div>
+            <img src="./images/pfp.png" alt="ghost profile photo">
+            <p id="welcomeopen">
+                SomeOS
+            </p> 
+        </div>
         <p id="timeElement">
             loading time...
         </p>
     </div>
 
     <div class="window" id="welcome">
-        <p class="handle" id="welcomeheader">
-            <!-- <i class="fa-solid fa-circle-xmark"></i> -->
-            <i class="fa-regular fa-circle-xmark"></i>
-        </p>
+        <div class="handle" id="welcomeheader">
+            <i class="fa-regular fa-circle-xmark" id="welcomeclose"></i>
+        </div>
         <div class="window-content">
             <h1>Welcome to my OS</h1>
             <h2>Introduction</h2>
             <p>Hi!!</p>
             <a href="#">testing a link</a>
             <img src="./images/french-hot-chocolate.jpg" alt="french hot chocolate">
+        </div>
+    </div>
+
+    <div id="desktopApps">
+        <div class="app-icon selected" id="notesopen">
+            <img src="./images/notes-app-icon.png" alt="Notes app icon">
+            <p>Notes</p>
+        </div>
+    </div>
+
+    <div id="notes" class="window">
+        <div class="handle" id="notesheader">
+            <i class="fa-regular fa-circle-xmark" id="notesclose"></i>
+        </div>
+
+        <div class="window-content">
+            <p>Notes</p>
         </div>
     </div>
 

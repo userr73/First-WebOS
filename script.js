@@ -7,6 +7,23 @@ function updateTime() {
 
 setInterval(updateTime, 1000);
 
+
+// Making window rise to top
+var biggestIndex = 1;
+
+function addWindowTapHandling(element) {
+      element.addEventListener('mousedown', () => 
+            handleWindowTap(element)
+      )
+}
+
+function handleWindowTap(element) {
+      biggestIndex++;
+      element.style.zIndex = biggestIndex;
+}
+
+
+
 // Make the DIV element draggable:
 dragElement(document.getElementById("welcome"));
 
@@ -61,3 +78,67 @@ function dragElement(element) {
             document.onmousemove = null;
       }
 }
+
+
+// Closing and opening a window
+function closeWindow(element) {
+      element.style.display = "none";
+}
+
+function openWindow(element) {
+      element.style.display = "flex";
+}
+
+
+// Welcome window
+var welcomeScreen = document.querySelector("#welcome");
+
+// Identify the buttons
+var welcomeScreenClose = document.querySelector("#welcomeclose");
+var welcomeScreenOpen = document.querySelector("#welcomeopen");
+
+// Add event listeners for the buttons
+welcomeScreenClose.addEventListener('click', () => closeWindow(welcomeScreen));
+welcomeScreenOpen.addEventListener('click', () => openWindow(welcomeScreen));
+
+
+
+// Makes Notes app draggable
+dragElement(document.getElementById('notes'))
+
+// Notes app
+var selectedIcon = undefined;
+
+function selectIcon(element) {
+      element.classList.add('selected');
+      selectedIcon = element;
+}
+
+function deselectedIcon(element) {
+      element.classList.remove('selected');
+      selectedIcon = undefined
+}
+
+function handleIconTap(element) {
+      if (element.classList.contains('selected')) {
+            deselectedIcon(element);
+            openWindow(window)
+      } else {
+            selectIcon(element);
+      }
+}
+
+// Make Notes app window open and close
+// Notes window
+var notesScreen = document.querySelector("#notes");
+
+// Identify the buttons
+var notesScreenClose = document.querySelector("#notesclose");
+var notesScreenOpen = document.querySelector("#notesopen");
+
+// Add event listeners for the buttons
+notesScreenClose.addEventListener('click', () => closeWindow(notesScreen));
+notesScreenOpen.addEventListener('click', () => openWindow(notesScreen));
+
+
+
