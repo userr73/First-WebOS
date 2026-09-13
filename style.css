@@ -34,6 +34,10 @@ a:hover {
     
     background-color: rgba(0, 0, 0, 0.3);
     color: var(--primary-text-col-contrast);
+
+    position: fixed;
+    width: 100vw;
+    box-sizing: border-box;
     
     div {
         display: flex;
@@ -57,7 +61,7 @@ a:hover {
 
 .app-icon {
     text-align: center;
-    padding: 1rem;
+    padding: 3rem 1rem;
     width: fit-content;
     
     filter: drop-shadow(0 0 8px var(--primary-text-col-contrast));
@@ -119,4 +123,19 @@ a:hover {
 #notes {
     display: none;
 }
+
+.editable-text {
+    border-left: 7px solid transparent;
+    padding: 0 0.5rem;
+}
+
+.editable-text:hover {
+    border-color: grey;
+}
+
+.editable-text:focus, .editable-text:focus:hover {
+    outline: none;
+    border-left-color: black;
+}
+
 

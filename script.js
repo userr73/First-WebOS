@@ -1,3 +1,7 @@
+// Get top bar
+var topBar = document.getElementById('topbar')
+
+
 // Update time in the top bar
 function updateTime() {
       var currentTime = new Date().toLocaleString();
@@ -8,7 +12,7 @@ function updateTime() {
 setInterval(updateTime, 1000);
 
 
-// Making window rise to top
+// Window tap functions
 var biggestIndex = 1;
 
 function addWindowTapHandling(element) {
@@ -20,12 +24,55 @@ function addWindowTapHandling(element) {
 function handleWindowTap(element) {
       biggestIndex++;
       element.style.zIndex = biggestIndex;
+      topBar.style.zIndex = biggestIndex + 1;
+      deselectIcon(selectedIcon);
 }
 
+function openWindow(element) {
+      element.style.display = 'flex'
+      biggestIndex++;
+      element.style.zIndex = biggestIndex;
+      topBar.style.zIndex = biggestIndex + 1;
+}
 
+function makeCloseable(element, screen) {
+      // Get the open and close buttons
+      var windowScreenClose = document.getElementById(element + "close");
+      var windowScreenOpen = document.getElementById(element + "open");
 
-// Make the DIV element draggable:
-dragElement(document.getElementById("welcome"));
+      // Add event listeners for the buttons
+      windowScreenClose.addEventListener('click', () => closeWindow(screen));
+      windowScreenOpen.addEventListener('click', () => openWindow(screen));
+}
+
+function initialiseWindow(elementName) {
+      var screen = document.getElementById(elementName);
+      addWindowTapHandling(screen);
+      dragElement(screen);
+      makeCloseable(elementName, screen)
+}
+
+var selectedIcon = undefined;
+
+// function selectIcon(element) {
+//       element.classList.add('selected');
+//       selectedIcon = element;
+// }
+
+function deselectIcon(element) {
+      element.classList.remove('selected');
+      selectedIcon = undefined
+}
+
+// function handleIconTap(element) {
+//       if (element.classList.contains('selected')) {
+//             deselectIcon(element);
+//             openWindow(window);
+//       } else {
+//             selectIcon(element);
+//       }
+// }
+
 
 // Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
@@ -55,11 +102,11 @@ function dragElement(element) {
             initialY = e.clientY;
             // Step 8: Set up event listeners for mouse movement (`elementDrag`) and mouse button release (`closeDragElement`).
             document.onmouseup = stopDragging;
-            document.onmousemove = dragElement;
+            document.onmousemove = elementDrag;
       }
 
       // Step 9: Define the `elementDrag` function to calculate the new position of the element based on mouse movement.
-      function dragElement(e) {
+      function elementDrag(e) {
             e = e || window.event;
             e.preventDefault();
             // Step 10: Calculate the new cursor position.
@@ -85,60 +132,31 @@ function closeWindow(element) {
       element.style.display = "none";
 }
 
-function openWindow(element) {
-      element.style.display = "flex";
-}
-
 
 // Welcome window
-var welcomeScreen = document.querySelector("#welcome");
-
-// Identify the buttons
-var welcomeScreenClose = document.querySelector("#welcomeclose");
-var welcomeScreenOpen = document.querySelector("#welcomeopen");
-
-// Add event listeners for the buttons
-welcomeScreenClose.addEventListener('click', () => closeWindow(welcomeScreen));
-welcomeScreenOpen.addEventListener('click', () => openWindow(welcomeScreen));
+initialiseWindow('welcome')
 
 
-
-// Makes Notes app draggable
-dragElement(document.getElementById('notes'))
-
-// Notes app
-var selectedIcon = undefined;
-
-function selectIcon(element) {
-      element.classList.add('selected');
-      selectedIcon = element;
-}
-
-function deselectedIcon(element) {
-      element.classList.remove('selected');
-      selectedIcon = undefined
-}
-
-function handleIconTap(element) {
-      if (element.classList.contains('selected')) {
-            deselectedIcon(element);
-            openWindow(window)
-      } else {
-            selectIcon(element);
-      }
-}
-
-// Make Notes app window open and close
 // Notes window
-var notesScreen = document.querySelector("#notes");
+initialiseWindow('notes')
 
-// Identify the buttons
-var notesScreenClose = document.querySelector("#notesclose");
-var notesScreenOpen = document.querySelector("#notesopen");
+function setNotesContent(index) {
+      var notesContent = document.getElementById('notesContent');
+      notesContent.innerHTML = content[index].content
+}
 
-// Add event listeners for the buttons
-notesScreenClose.addEventListener('click', () => closeWindow(notesScreen));
-notesScreenOpen.addEventListener('click', () => openWindow(notesScreen));
+var content = [
+      {
+            content: `
+                  <h1 contenteditable="True" class="editable-text">Notes</h1>
+                  <p contenteditable="True" class="editable-text">
+                        The Notes app is a space for you to type down anything: reminders/tasks, a quote you found, random thoughts, or really anything you want to add.
+                  </p>
+            `
+      }
+]
+
+setNotesContent(0)
 
 
 
