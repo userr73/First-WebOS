@@ -83,13 +83,10 @@ a:hover {
 
     background-color: var(--window-col);
     
-    width: fit-content; 
+    width: 400px; 
     border-radius: var(--window-radius);
     
     position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
 }
 
 .window-content {

@@ -1,5 +1,6 @@
 // Get top bar
 var topBar = document.getElementById('topbar')
+const topbarHeight = document.getElementById('topbar').offsetHeight;
 
 
 // Update time in the top bar
@@ -47,6 +48,8 @@ function makeCloseable(element, screen) {
 
 function initialiseWindow(elementName) {
       var screen = document.getElementById(elementName);
+      screen.style.top = topbarHeight + 'px';
+      screen.style.left = '100px'; // TEMP: make this sidebar width later
       addWindowTapHandling(screen);
       dragElement(screen);
       makeCloseable(elementName, screen)
@@ -60,6 +63,9 @@ var selectedIcon = undefined;
 // }
 
 function deselectIcon(element) {
+      // Prevent file from crashing if element is undefined
+      if (!element) return;
+
       element.classList.remove('selected');
       selectedIcon = undefined
 }
@@ -115,8 +121,23 @@ function dragElement(element) {
             initialX = e.clientX;
             initialY = e.clientY;
             // Step 11: Update the element's new position by modifying its `top` and `left` CSS properties.
-            element.style.top = (element.offsetTop - currentY) + "px";
-            element.style.left = (element.offsetLeft - currentX) + "px";
+            // Get the intended update Y position
+            newY = element.offsetTop - currentY
+            // Restrict the Y coordinate to within the screen height
+            if (newY < topbarHeight) {
+                  element.style.top = topbarHeight;
+            } else {
+                  element.style.top = Math.min(newY, (window.innerHeight - element.offsetHeight)) + "px";
+            }
+
+            // Get the inteded update X position
+            newX = element.offsetLeft - currentX
+            // Restrict the X coordinate to within the screen width
+            if (newX < 0) {
+                  element.style.left = 0
+            } else {
+                  element.style.left = Math.min(newX, (window.innerWidth - element.offsetWidth)) + "px";
+            }
       }
 
       // Step 12: Define the `stopDragging` function to stop tracking mouse movement by removing the event listeners.
@@ -142,7 +163,19 @@ initialiseWindow('notes')
 
 function setNotesContent(index) {
       var notesContent = document.getElementById('notesContent');
-      notesContent.innerHTML = content[index].content
+      notesContent.innerHTML = content[index].content;
+}
+
+function addToNotes(index) {
+      var contentDiv = document.getElementById('notesContent');
+      var note = content[index].content;
+      var newDiv = document.createElement('div');
+      newDiv.innerHTML = note;
+      // newDiv.addEventListener('click', function() {
+      //       setNotesContent(index);
+      // });
+
+      contentDiv.appendChild(newDiv);
 }
 
 var content = [
@@ -153,10 +186,19 @@ var content = [
                         The Notes app is a space for you to type down anything: reminders/tasks, a quote you found, random thoughts, or really anything you want to add.
                   </p>
             `
+      },
+      {
+            content: `
+            <p contenteditable="True" style="color: brown;" class="editable-text">Another sample note</p>
+      `
       }
 ]
 
-setNotesContent(0)
+// setNotesContent(0)
+
+for (let i = 0; i < content.length; i++) {
+      addToNotes(i)
+}
 
 
 
