@@ -78,7 +78,7 @@ a:hover {
 }
 
 .window {
-    display: flex;
+    display: none;
     flex-direction: column;
 
     background-color: var(--window-col);
@@ -117,8 +117,14 @@ a:hover {
     }
 }
 
-#notes {
-    display: none;
+#welcome {
+    display: flex;
+    display: none; /* TEMP */
+}
+
+/* TEMP */
+#stopwatch {
+    display: flex;
 }
 
 .editable-text {
