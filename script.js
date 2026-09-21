@@ -208,6 +208,8 @@ let [seconds, minutes, hours] = [0, 0, 0];
 let stopwatchTime = document.getElementById('stopwatchTime');
 let timer = null
 
+let stopwatchStartStopBtn = document.getElementById('stopwatchStartStopBtn');
+
 function stopwatch() {
       seconds++;
 
@@ -229,13 +231,14 @@ function stopwatch() {
 }
 
 function startStopwatch() {
-      document.getElementById('stopwatchStartStopBtn').innerHTML = 'Stop'
-
-      if (timer != null) {
+      if (stopwatchStartStopBtn.innerHTML == 'Start') {
+            timer = setInterval(stopwatch, 1000);
+            stopwatchStartStopBtn.innerHTML = 'Stop';
+      } else {
             clearInterval(timer);
+            stopwatchStartStopBtn.innerHTML = 'Start';
       }
-      
-      timer = setInterval(stopwatch, 1000);
+
 }
 
 function stopStopwatch() {
