@@ -189,7 +189,7 @@ var content = [
       },
       {
             content: `
-            <p contenteditable="True" style="color: brown;" class="editable-text">Another sample note</p>
+            <p contenteditable="True" style="color: brown;" class="editable-text">Important notes</p>
       `
       }
 ]
